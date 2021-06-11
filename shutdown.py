@@ -1,19 +1,18 @@
-import sys,subprocess
+def convert(rule,number):
 
-minutes = sys.argv[1] #get minutes from user #shutdown.py 30
-minutes = int(minutes) #convert 30 to integer
-seconds = minutes * 60 #multiply 30 minutes by 60 to get seconds
+    number = int(number)
 
-cancel_shutdown = 'shutdown /a' #cancel shutdown as string
-cancel_shutdown = cancel_shutdown.split(' ') #convert string to array
+    if rule == 'h':
+        number=number*3600
+    elif rule == 'm':
+        number=number*60
+    
+    import subprocess
+    subprocess.run(f'shutdown /a')
+    subprocess.run(f'shutdown /s /t {number}'.split(' '))
+    
+        
 
-shutdown = f'shutdown /s /t {seconds}' #shutdown as string
-shutdown = shutdown.split(' ') #convert string to array
+import sys
+convert(sys.argv[1],sys.argv[2])
 
-subprocess.run(cancel_shutdown) #run cancel shutdown 
-subprocess.run(shutdown) #run shutdown
-
-# shutdown.py 30
-# pc will shutdown in 30 minutes
-# instead of writing
-# shutdown /s /t 1800 

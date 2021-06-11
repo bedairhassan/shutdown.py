@@ -1,18 +1,21 @@
-def convert(rule,number):
+import sys,subprocess
 
-    number = int(number)
-
+def findRule(rule):
     if rule == 'h':
-        number=number*3600
+        return 3600
     elif rule == 'm':
-        number=number*60
-    
-    import subprocess
+        return 60
+    elif rule=='s':
+        return 1
+
+def shutdownProcess(number):
     subprocess.run(f'shutdown /a')
     subprocess.run(f'shutdown /s /t {number}'.split(' '))
-    
-        
 
-import sys
-convert(sys.argv[1],sys.argv[2])
+def shutdown(rule,number):
+    number=int(number)*findRule(rule)  
+    shutdownProcess(number)
+    
+if __name__=='__main__':
+    shutdown(sys.argv[1],sys.argv[2])
 

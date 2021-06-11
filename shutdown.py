@@ -12,10 +12,11 @@ def shutdownProcess(number):
     subprocess.run(f'shutdown /a')
     subprocess.run(f'shutdown /s /t {number}'.split(' '))
 
-def shutdown(rule,number):
-    number=int(number)*findRule(rule)  
+def shutdown(**headers):
+
+    number=int(headers['number'])*findRule(headers['rule'])  
     shutdownProcess(number)
     
 if __name__=='__main__':
-    shutdown(sys.argv[1],sys.argv[2])
+    shutdown(rule=sys.argv[1],number=sys.argv[2])
 
